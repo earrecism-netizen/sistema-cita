@@ -1,0 +1,59 @@
+# ==========================
+# Java / Maven / NetBeans ignore
+# ==========================
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# NetBeans specific
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+*.nb-gradle-properties
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# If using wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ IDEA (por si abres el proyecto)
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# VS Code (si lo usas alguna vez)
+.vscode/
+
+# OS generated
+.DS_Store
+Thumbs.db
