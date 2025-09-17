@@ -12,10 +12,13 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jakartaee>10.0.0</jakartaee>
-        <!-- Fuerza compilación con Java 21 -->
         <maven.compiler.release>21</maven.compiler.release>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <jakartaee.version>10.0.0</jakartaee.version>
+        <primefaces.version>14.0.7</primefaces.version>
     </properties>
-
+    
+  
     <dependencies>
         <!-- API completa de Jakarta EE 10, provista por Payara 6 -->
         <dependency>
@@ -23,6 +26,20 @@
             <artifactId>jakarta.jakartaee-api</artifactId>
             <version>${jakartaee}</version>
             <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-web-api</artifactId>
+            <version>10.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- PrimeFaces Jakarta -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>14.0.7</version>
         </dependency>
 
     </dependencies>

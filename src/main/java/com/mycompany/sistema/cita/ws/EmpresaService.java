@@ -22,7 +22,7 @@ public class EmpresaService {
 
     @Resource(lookup = "jdbc/SqlServerDS")
     private DataSource ds;
-
+     
     @WebMethod(operationName = "listarEmpresas")
     public List<EmpresaDTO> listarEmpresas() throws Exception {
         String sql = """

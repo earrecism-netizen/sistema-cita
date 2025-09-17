@@ -1,0 +1,7 @@
+:root { --topbar-h: 64px; }
+.topbar { height: var(--topbar-h); background: #0f172a; color: #fff; }
+.logo { width: 28px; height: 28px; }
+.app-title { font-weight: 600; font-size: 1.1rem; }
+.sidebar { background: #f8fafc; border-right: 1px solid #e2e8f0; }
+.content { background: #ffffff; }
+.footer { background: #f1f5f9; border-top: 1px solid #e2e8f0; }

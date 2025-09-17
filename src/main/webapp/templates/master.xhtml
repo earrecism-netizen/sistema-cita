@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Sistema de Citas</title>
+    <meta charset="UTF-8" />
+    <h:outputStylesheet library="css" name="app.css"/>
+    <h:outputStylesheet name="META-INF/resources/webjars/primeflex/3.3.1/primeflex.min.css"/>
+    <h:outputStylesheet name="META-INF/resources/webjars/primeicons/7.0.0/primeicons.css"/>
+</h:head>
+
+<h:body class="p-m-0 p-p-0">
+    <p:growl id="growl" showDetail="true"/>
+
+    <!-- Topbar -->
+    <div class="p-d-flex p-ai-center p-jc-between p-p-3 topbar">
+        <div class="p-d-flex p-ai-center">
+            <h:graphicImage library="images" name="logo.svg" styleClass="logo" alt="Logo"/>
+            <span class="p-ml-2 app-title">Sistema de Citas</span>
+        </div>
+        <div class="p-d-flex p-ai-center p-gap-3">
+            <p:inputText placeholder="Buscar..."/>
+            <p:button icon="pi pi-user" value="Perfil" styleClass="p-button-text"/>
+        </div>
+    </div>
+
+    <div class="p-grid p-nogutter" style="min-height: calc(100vh - 64px);">
+        <!-- Sidebar -->
+        <div class="p-col-12 p-md-2 p-lg-2 sidebar p-p-3">
+            <p:menu>
+                <p:submenu label="Citas">
+                    <p:menuitem value="Listado" icon="pi pi-list" outcome="/pages/cita-list"/>
+                    <p:menuitem value="Nueva" icon="pi pi-plus" outcome="/pages/cita-form"/>
+                </p:submenu>
+                <p:submenu label="Administración">
+                    <p:menuitem value="Doctores" icon="pi pi-users" outcome="/pages/doctor-list"/>
+                    <p:menuitem value="Pacientes" icon="pi pi-id-card" outcome="/pages/paciente-list"/>
+                </p:submenu>
+            </p:menu>
+        </div>
+
+        <!-- Content -->
+        <div class="p-col-12 p-md-10 p-lg-10 p-p-4 content">
+            <ui:insert name="pageTitle">
+                <h2>Dashboard</h2>
+            </ui:insert>
+            <ui:insert name="content">
+                <p:card>
+                    <p>Bienvenido al sistema.</p>
+                </p:card>
+            </ui:insert>
+        </div>
+    </div>
+
+    <div class="p-p-3 p-text-center footer">
+        <small>&copy; #{java.time.Year.now()} — UMG</small>
+    </div>
+
+    <h:outputScript/>
+</h:body>
+</html>
