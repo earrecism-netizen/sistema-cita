@@ -1,34 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="jakarta.faces.facelets"
       xmlns:h="jakarta.faces.html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="jakarta.faces.core"
+      xmlns:pt="jakarta.faces.passthrough">
 <ui:composition template="/templates/master.xhtml">
-    <ui:define name="pageTitle">
-        <h2>Listado de Citas</h2>
-    </ui:define>
-
-    <ui:define name="content">
-        <h:form id="form">
-            <!-- Reemplaza esto por tu tabla/consulta actual -->
-            <p:card>
-                <p:dataTable value="#{citaBean.citas}" var="c">
-                    <p:column headerText="Código"><h:outputText value="#{c.id}"/></p:column>
-                    <p:column headerText="Paciente"><h:outputText value="#{c.paciente}"/></p:column>
-                    <p:column headerText="Doctor"><h:outputText value="#{c.doctor}"/></p:column>
-                    <p:column headerText="Fecha/Hora"><h:outputText value="#{c.fechaHora}"/></p:column>
-                    <p:column headerText="Acciones" styleClass="p-text-right">
-                        <p:commandButton icon="pi pi-pencil" title="Editar"
-                                         action="#{citaBean.editar(c)}" update=":growl"/>
-                        <p:commandButton icon="pi pi-trash" title="Eliminar"
-                                         actionListener="#{citaBean.confirmarEliminar(c)}"
-                                         update=":growl" styleClass="p-ml-2 p-button-danger"/>
-                    </p:column>
-                </p:dataTable>
-            </p:card>
-        </h:form>
-    </ui:define>
+  <ui:define name="pageTitle"><h2>Nueva Cita</h2></ui:define>
+  <ui:define name="content">
+    <h:form id="form">
+      <div>
+        <label>Paciente</label><br/>
+        <h:inputText value="#{citaBean.citaActual.paciente}" required="true"/>
+      </div>
+      <div>
+        <label>Doctor</label><br/>
+        <h:inputText value="#{citaBean.citaActual.doctor}" required="true"/>
+      </div>
+      <div>
+        <label>Fecha y hora</label><br/>
+        <!-- HTML5 datetime-local + convertidor JSF -->
+        <h:inputText value="#{citaBean.citaActual.fechaHora}" pt:type="datetime-local" required="true">
+          <f:convertDateTime type="localDateTime" pattern="yyyy-MM-dd'T'HH:mm"/>
+        </h:inputText>
+      </div>
+      <div style="margin-top:10px">
+        <h:commandButton value="Guardar" action="#{citaBean.guardar}">
+          <f:ajax execute="@form" render="@form :formMessages"/>
+        </h:commandButton>
+        <h:link outcome="/pages/cita-list" value="Cancelar" />
+      </div>
+      <h:messages id="formMessages"/>
+    </h:form>
+  </ui:define>
 </ui:composition>
 </html>
+
 

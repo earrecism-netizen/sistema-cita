@@ -24,7 +24,7 @@
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>${jakartaee}</version>
+            <version>10.0.0</version>
             <scope>provided</scope>
         </dependency>
         
@@ -35,12 +35,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- PrimeFaces Jakarta -->
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>14.0.7</version>
-        </dependency>
 
     </dependencies>
 
