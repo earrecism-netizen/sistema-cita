@@ -18,7 +18,6 @@
       </div>
       <div>
         <label>Fecha y hora</label><br/>
-        <!-- HTML5 datetime-local + convertidor JSF -->
         <h:inputText value="#{citaBean.citaActual.fechaHora}" pt:type="datetime-local" required="true">
           <f:convertDateTime type="localDateTime" pattern="yyyy-MM-dd'T'HH:mm"/>
         </h:inputText>

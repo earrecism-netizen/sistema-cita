@@ -34,4 +34,11 @@ public class EmpresaDTO {
     public void setActivo(Boolean activo) { this.activo = activo; }
     public String getCreadoEn() { return creadoEn; }
     public void setCreadoEn(String creadoEn) { this.creadoEn = creadoEn; }
+
+    @Override
+    public String toString() {
+        return "EmpresaDTO{" + "empresaId=" + empresaId + ", nombre=" + nombre + ", nit=" + nit + ", telefono=" + telefono + ", direccion=" + direccion + ", activo=" + activo + ", creadoEn=" + creadoEn + '}';
+    }
+    
+    
 }
