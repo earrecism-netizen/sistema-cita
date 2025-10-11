@@ -1,37 +1,52 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="jakarta.faces.facelets"
-      xmlns:h="jakarta.faces.html"
-      xmlns:f="jakarta.faces.core"
-      xmlns:pt="jakarta.faces.passthrough">
-<ui:composition template="/templates/master.xhtml">
-  <ui:define name="pageTitle"><h2>Nueva Cita</h2></ui:define>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/templates/master.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core"
+    xmlns:p="http://primefaces.org/ui">
+  <ui:define name="pageTitle"><h2>Listado de citas</h2></ui:define>
   <ui:define name="content">
     <h:form id="form">
-      <div>
-        <label>Paciente</label><br/>
-        <h:inputText value="#{citaBean.citaActual.paciente}" required="true"/>
-      </div>
-      <div>
-        <label>Doctor</label><br/>
-        <h:inputText value="#{citaBean.citaActual.doctor}" required="true"/>
-      </div>
-      <div>
-        <label>Fecha y hora</label><br/>
-        <h:inputText value="#{citaBean.citaActual.fechaHora}" pt:type="datetime-local" required="true">
-          <f:convertDateTime type="localDateTime" pattern="yyyy-MM-dd'T'HH:mm"/>
-        </h:inputText>
-      </div>
-      <div style="margin-top:10px">
-        <h:commandButton value="Guardar" action="#{citaBean.guardar}">
-          <f:ajax execute="@form" render="@form :formMessages"/>
-        </h:commandButton>
-        <h:link outcome="/pages/cita-list" value="Cancelar" />
-      </div>
-      <h:messages id="formMessages"/>
+      <p:button value="Crear cita" icon="pi pi-plus" outcome="/pages/cita-form" styleClass="p-mb-3"/>
+      <p:dataTable value="#{citaBean.citas}" var="cita" paginator="true" rows="5" responsiveLayout="scroll">
+        <p:column headerText="ID">
+          <h:outputText value="#{cita.id}"/>
+        </p:column>
+        <p:column headerText="Solicitante">
+          <h:outputText value="#{cita.solicitanteNombre}"/>
+        </p:column>
+        <p:column headerText="Empresa">
+          <h:outputText value="#{cita.empresaNombre}"/>
+        </p:column>
+        <p:column headerText="Motivo">
+          <h:outputText value="#{cita.motivoNombre}"/>
+        </p:column>
+        <p:column headerText="Horario">
+          <h:outputText value="#{cita.horarioDescripcion}"/>
+        </p:column>
+        <p:column headerText="Estado">
+          <h:outputText value="#{cita.estadoNombre}"/>
+        </p:column>
+        <p:column headerText="Prioridad">
+          <h:outputText value="#{cita.prioridad}"/>
+        </p:column>
+        <p:column headerText="Posición">
+          <h:outputText value="#{cita.posicionCola}"/>
+        </p:column>
+        <p:column headerText="Notas">
+          <h:outputText value="#{cita.notas}"/>
+        </p:column>
+        <p:column headerText="Creada">
+          <h:outputText value="#{cita.creadaEn}">
+            <f:convertDateTime type="localDateTime" pattern="dd/MM/yyyy HH:mm"/>
+          </h:outputText>
+        </p:column>
+        <p:column headerText="Acciones" styleClass="p-text-center">
+          <p:commandButton value="Eliminar" icon="pi pi-trash" styleClass="p-button-danger p-button-text"
+                           actionListener="#{citaBean.eliminar(cita)}" update="@form"/>
+        </p:column>
+      </p:dataTable>
     </h:form>
   </ui:define>
 </ui:composition>
-</html>
-
-
