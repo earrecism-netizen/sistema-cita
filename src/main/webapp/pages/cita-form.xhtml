@@ -16,20 +16,20 @@
           </div>
           <div class="p-field p-col-12 p-md-6">
             <label>Doctor</label>
-            <p:autoComplete value="#{citaBean.doctor}" completeMethod="#{citaBean.buscarDoctores}"
+            <p:autoComplete value="#{citaBean1.doctor}" completeMethod="#{citaBean1.buscarDoctores}"
                             dropdown="true"/>
           </div>
           <div class="p-field p-col-12 p-md-6">
             <label>Fecha</label>
-            <p:datePicker value="#{citaBean.fecha}" showIcon="true"/>
+            <p:datePicker value="#{citaBean1.fecha}" showIcon="true"/>
           </div>
           <div class="p-field p-col-12 p-md-6">
             <label>Hora</label>
-            <p:datePicker value="#{citaBean.hora}" timeOnly="true" hourFormat="24" showIcon="true"/>
+            <p:datePicker value="#{citaBean1.hora}" timeOnly="true" hourFormat="24" showIcon="true"/>
           </div>
         </div>
         <p:commandButton value="Guardar" icon="pi pi-save"
-                         action="#{citaBean.guardar}" update=":growl @form"/>
+                         action="#{citaBean1.guardar}" update=":growl @form"/>
         <p:button value="Cancelar" outcome="/pages/cita-list" styleClass="p-button-text"/>
       </p:panel>
     </h:form>

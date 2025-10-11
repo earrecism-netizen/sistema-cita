@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:pt="jakarta.faces.passthrough">
+    <ui:composition template="/templates/master.xhtml">
+        <ui:define name="pageTitle"><h2>Crear Cita</h2></ui:define>
+        <ui:define name="content">
+
+            <h:form id="formCita">
+                <h2>Nueva Cita</h2>
+
+                <h:panelGrid columns="2" columnClasses="label,value" cellpadding="5">
+
+                    <h:outputLabel for="sol" value="Solicitante:"/>
+                    <h:selectOneMenu id="sol" value="#{citaBean.solicitanteId}" required="true">
+                        <f:selectItem itemLabel="-- Seleccione --" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{citaBean.solicitantes}"
+                                       var="s" itemValue="#{s.id}" itemLabel="#{s.nombreCompleto}"/>
+                    </h:selectOneMenu>
+
+                    <h:outputLabel for="emp" value="Empresa:"/>
+                    <h:selectOneMenu id="emp" value="#{citaBean.empresaId}" required="true">
+                        <f:selectItem itemLabel="-- Seleccione --" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{citaBean.empresas}"
+                                       var="e" itemValue="#{e.id}" itemLabel="#{e.nombre}"/>
+                    </h:selectOneMenu>
+
+                    <h:outputLabel for="mot" value="Motivo:"/>
+                    <h:selectOneMenu id="mot" value="#{citaBean.motivoId}" required="true">
+                        <f:selectItem itemLabel="-- Seleccione --" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{citaBean.motivos}"
+                                       var="m" itemValue="#{m.id}" itemLabel="#{m.nombre}"/>
+                    </h:selectOneMenu>
+
+                    <h:outputLabel for="hor" value="Horario:"/>
+                    <h:selectOneMenu id="hor" value="#{citaBean.horarioId}" required="true">
+                        <f:selectItem itemLabel="-- Seleccione --" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{citaBean.horarios}"
+                                       var="hrr"
+                                       itemValue="#{hrr.id}"
+                                       itemLabel="#{hrr.id} - #{hrr.inicio} a #{hrr.fin} (cap: #{hrr.capacidad})"/>
+                    </h:selectOneMenu>
+
+                    <h:outputLabel for="est" value="Estado:"/>
+                    <h:selectOneMenu id="est" value="#{citaBean.estadoId}" required="true">
+                        <f:selectItem itemLabel="-- Seleccione --" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{citaBean.estados}"
+                                       var="est" itemValue="#{est.id}" itemLabel="#{est.nombre}"/>
+                    </h:selectOneMenu>
+
+                    <h:outputLabel for="pri" value="Prioridad:"/>
+                    <h:inputText id="pri" value="#{citaBean.prioridad}" />
+
+                    <h:outputLabel for="cola" value="Posición en cola:"/>
+                    <h:inputText id="cola" value="#{citaBean.posicionCola}" />
+
+                    <h:outputLabel for="notas" value="Notas:"/>
+                    <h:inputTextarea id="notas" value="#{citaBean.notas}" cols="40" rows="4"/>
+
+                </h:panelGrid>
+
+                <h:commandButton value="Guardar" action="#{citaBean.guardar}"/>
+
+                <h:panelGroup rendered="#{not empty citaBean.creadoId}">
+                    <h:messages/>
+                    <h3>¡Cita creada! ID: #{citaBean.creadoId}</h3>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty citaBean.errorMsg}">
+                    <h:messages/>
+                    <h3 style="color:red">Error: #{citaBean.errorMsg}</h3>
+                </h:panelGroup>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

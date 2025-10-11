@@ -10,20 +10,20 @@
     <h:form id="form">
       <div>
         <label>Paciente</label><br/>
-        <h:inputText value="#{citaBean.citaActual.paciente}" required="true"/>
+        <h:inputText value="#{citaBean1.citaActual.paciente}" required="true"/>
       </div>
       <div>
         <label>Doctor</label><br/>
-        <h:inputText value="#{citaBean.citaActual.doctor}" required="true"/>
+        <h:inputText value="#{citaBean1.citaActual.doctor}" required="true"/>
       </div>
       <div>
         <label>Fecha y hora</label><br/>
-        <h:inputText value="#{citaBean.citaActual.fechaHora}" pt:type="datetime-local" required="true">
+        <h:inputText value="#{citaBean1.citaActual.fechaHora}" pt:type="datetime-local" required="true">
           <f:convertDateTime type="localDateTime" pattern="yyyy-MM-dd'T'HH:mm"/>
         </h:inputText>
       </div>
       <div style="margin-top:10px">
-        <h:commandButton value="Guardar" action="#{citaBean.guardar}">
+        <h:commandButton value="Guardar" action="#{citaBean1.guardar}">
           <f:ajax execute="@form" render="@form :formMessages"/>
         </h:commandButton>
         <h:link outcome="/pages/cita-list" value="Cancelar" />
