@@ -9,37 +9,7 @@
 
         <ui:define name="content">
             <p>Bienvenido 👋</p>
-            <h:form id="formEmpresas">
-                <h:commandButton id="btnListar"
-                                 value="Listar Empresas"
-                                 action="#{empresaBean.listarEmpresas}">
-                    <!-- Renderizamos el wrapper que SIEMPRE existe -->
-                    <f:ajax render=":formEmpresas:tablaWrapper :formEmpresas:msgs"/>
-                </h:commandButton>
-
-                <h:messages id="msgs" globalOnly="true" />
-
-                <!-- 👇 Este contenedor siempre está en el DOM -->
-                <h:panelGroup id="tablaWrapper" layout="block">
-                    <h:dataTable id="tablaEmpresas"
-                                 value="#{empresaBean.empresas}"
-                                 var="e"
-                                 rendered="#{not empty empresaBean.empresas}">
-                        <h:column><f:facet name="header">ID</f:facet>#{e.empresaId}</h:column>
-                        <h:column><f:facet name="header">Nombre</f:facet>#{e.nombre}</h:column>
-                        <h:column><f:facet name="header">NIT</f:facet>#{e.nit}</h:column>
-                        <h:column><f:facet name="header">Teléfono</f:facet>#{e.telefono}</h:column>
-                        <h:column><f:facet name="header">Dirección</f:facet>#{e.direccion}</h:column>
-                        <h:column><f:facet name="header">Activo</f:facet>#{e.activo ? 'Sí' : 'No'}</h:column>
-                        <h:column><f:facet name="header">Creado en</f:facet>#{e.creadoEn}</h:column>
-                    </h:dataTable>
-
-                    <!-- Mensaje cuando no hay datos (opcional) -->
-                    <h:panelGroup rendered="#{empty empresaBean.empresas}">
-                        <em>No hay empresas cargadas.</em>
-                    </h:panelGroup>
-                </h:panelGroup>
-            </h:form>
+          
 
         </ui:define>
     </ui:composition>

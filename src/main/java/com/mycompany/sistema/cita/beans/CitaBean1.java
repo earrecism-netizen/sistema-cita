@@ -9,11 +9,11 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class CitaBean implements Serializable {
+public class CitaBean1 implements Serializable {
     private List<Cita> citas = new ArrayList<>();
     private Cita citaActual = new Cita();
 
-    public CitaBean() {
+    public CitaBean1() {
         // demo
         citas.add(new Cita(1L, "Juan Pérez", "Dra. López", LocalDateTime.now().plusDays(1)));
         citas.add(new Cita(2L, "Ana García", "Dr. Ruiz", LocalDateTime.now().plusDays(2)));

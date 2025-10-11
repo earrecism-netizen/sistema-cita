@@ -7,31 +7,7 @@
   <ui:define name="pageTitle"><h2>Nueva Cita</h2></ui:define>
   <ui:define name="content">
     <h:form id="form">
-      <p:panel header="Datos de la Cita">
-        <div class="p-fluid p-formgrid p-grid">
-          <div class="p-field p-col-12 p-md-6">
-            <label>Paciente</label>
-            <p:autoComplete value="#{citaBean.paciente}" completeMethod="#{citaBean.buscarPacientes}"
-                            dropdown="true"/>
-          </div>
-          <div class="p-field p-col-12 p-md-6">
-            <label>Doctor</label>
-            <p:autoComplete value="#{citaBean.doctor}" completeMethod="#{citaBean.buscarDoctores}"
-                            dropdown="true"/>
-          </div>
-          <div class="p-field p-col-12 p-md-6">
-            <label>Fecha</label>
-            <p:datePicker value="#{citaBean.fecha}" showIcon="true"/>
-          </div>
-          <div class="p-field p-col-12 p-md-6">
-            <label>Hora</label>
-            <p:datePicker value="#{citaBean.hora}" timeOnly="true" hourFormat="24" showIcon="true"/>
-          </div>
-        </div>
-        <p:commandButton value="Guardar" icon="pi pi-save"
-                         action="#{citaBean.guardar}" update=":growl @form"/>
-        <p:button value="Cancelar" outcome="/pages/cita-list" styleClass="p-button-text"/>
-      </p:panel>
+
     </h:form>
   </ui:define>
 </ui:composition>
