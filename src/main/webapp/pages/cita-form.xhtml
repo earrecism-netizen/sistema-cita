@@ -3,33 +3,75 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="jakarta.faces.facelets"
     xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core"
     xmlns:p="http://primefaces.org/ui">
-  <ui:define name="pageTitle"><h2>Nueva Cita</h2></ui:define>
+  <ui:define name="pageTitle"><h2>Crear nueva cita</h2></ui:define>
   <ui:define name="content">
     <h:form id="form">
-      <p:panel header="Datos de la Cita">
+      <p:messages id="messages" showDetail="true" closable="true"/>
+      <p:panel header="Datos de la cita">
         <div class="p-fluid p-formgrid p-grid">
           <div class="p-field p-col-12 p-md-6">
-            <label>Paciente</label>
-            <p:autoComplete value="#{citaBean.paciente}" completeMethod="#{citaBean.buscarPacientes}"
-                            dropdown="true"/>
+            <p:outputLabel for="solicitante" value="Solicitante"/>
+            <p:selectOneMenu id="solicitante" value="#{citaBean.form.solicitanteId}" required="true"
+                             requiredMessage="Seleccione un solicitante">
+              <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true"/>
+              <f:selectItems value="#{citaBean.solicitantes}" var="sol" itemValue="#{sol.id}" itemLabel="#{sol.nombreCompleto}"/>
+            </p:selectOneMenu>
           </div>
           <div class="p-field p-col-12 p-md-6">
-            <label>Doctor</label>
-            <p:autoComplete value="#{citaBean.doctor}" completeMethod="#{citaBean.buscarDoctores}"
-                            dropdown="true"/>
+            <p:outputLabel for="empresa" value="Empresa"/>
+            <p:selectOneMenu id="empresa" value="#{citaBean.form.empresaId}" required="true"
+                             requiredMessage="Seleccione una empresa">
+              <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true"/>
+              <f:selectItems value="#{citaBean.empresas}" var="emp" itemValue="#{emp.id}" itemLabel="#{emp.nombre}"/>
+              <p:ajax event="change" update="motivo horario descripcionHorario" listener="#{citaBean.limpiarMotivoYHorario}"/>
+            </p:selectOneMenu>
           </div>
           <div class="p-field p-col-12 p-md-6">
-            <label>Fecha</label>
-            <p:datePicker value="#{citaBean.fecha}" showIcon="true"/>
+            <p:outputLabel for="motivo" value="Motivo"/>
+            <p:selectOneMenu id="motivo" value="#{citaBean.form.motivoId}" required="true"
+                             requiredMessage="Seleccione un motivo" disabled="#{empty citaBean.form.empresaId}">
+              <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true"/>
+              <f:selectItems value="#{citaBean.motivosDisponibles}" var="mot" itemValue="#{mot.id}" itemLabel="#{mot.nombre}"/>
+              <p:ajax event="change" update="horario descripcionHorario" listener="#{citaBean.limpiarHorario}"/>
+            </p:selectOneMenu>
           </div>
           <div class="p-field p-col-12 p-md-6">
-            <label>Hora</label>
-            <p:datePicker value="#{citaBean.hora}" timeOnly="true" hourFormat="24" showIcon="true"/>
+            <p:outputLabel for="horario" value="Horario disponible"/>
+            <p:selectOneMenu id="horario" value="#{citaBean.form.horarioId}" required="true"
+                             requiredMessage="Seleccione un horario" disabled="#{empty citaBean.form.motivoId}">
+              <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true"/>
+              <f:selectItems value="#{citaBean.horariosDisponibles}" var="hor" itemValue="#{hor.id}"
+                             itemLabel="#{citaBean.formatearHorario(hor)}"/>
+            </p:selectOneMenu>
+          </div>
+          <div class="p-field p-col-12">
+            <p:outputLabel id="descripcionHorario" value="#{citaBean.descripcionHorarioSeleccionado}"/>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <p:outputLabel for="estado" value="Estado inicial"/>
+            <p:selectOneMenu id="estado" value="#{citaBean.form.estadoId}" required="true"
+                             requiredMessage="Seleccione un estado">
+              <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true"/>
+              <f:selectItems value="#{citaBean.estados}" var="estado" itemValue="#{estado.id}" itemLabel="#{estado.nombre}"/>
+            </p:selectOneMenu>
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+            <p:outputLabel for="prioridad" value="Prioridad"/>
+            <p:spinner id="prioridad" value="#{citaBean.form.prioridad}" min="0" max="10"/>
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+            <p:outputLabel for="posicion" value="Posición en cola"/>
+            <p:spinner id="posicion" value="#{citaBean.form.posicionCola}" min="0"/>
+          </div>
+          <div class="p-field p-col-12">
+            <p:outputLabel for="notas" value="Notas"/>
+            <p:inputTextarea id="notas" value="#{citaBean.form.notas}" rows="4" autoResize="true"/>
           </div>
         </div>
         <p:commandButton value="Guardar" icon="pi pi-save"
-                         action="#{citaBean.guardar}" update=":growl @form"/>
+                         action="#{citaBean.guardar}" update="@form"/>
         <p:button value="Cancelar" outcome="/pages/cita-list" styleClass="p-button-text"/>
       </p:panel>
     </h:form>
