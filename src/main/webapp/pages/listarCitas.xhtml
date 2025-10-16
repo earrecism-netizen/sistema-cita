@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <ui:composition template="/templates/master.xhtml">
+
+        <ui:define name="pageTitle">
+            <h2>Listado de Citas</h2>
+        </ui:define>
+
+        <ui:define name="content">
+
+            <h:form id="formListado">
+                <h2>Todas las Citas Registradas</h2>
+
+                <!-- Mensajes de error -->
+                <h:messages globalOnly="true" style="color: red;" />
+                
+                <h:panelGroup rendered="#{not empty citaBean.errorMsg}">
+                    <div style="color: red; font-weight: bold;">
+                        Error: #{citaBean.errorMsg}
+                    </div>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{empty citaBean.citas}">
+                    <h3>No hay citas registradas actualmente.</h3>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty citaBean.citas}">
+                    <h:dataTable id="tablaCitas" value="#{citaBean.citas}" var="c"
+                                 border="1" style="width:100%; text-align:center; border-collapse:collapse;">
+
+                        <h:column>
+                            <f:facet name="header">ID</f:facet>
+                            #{c.citaId}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Solicitante</f:facet>
+                            #{c.solicitante}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Empresa</f:facet>
+                            #{c.empresa}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Motivo</f:facet>
+                            #{c.motivo}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Inicio</f:facet>
+                            <h:outputText value="#{c.inicio}">
+                                <f:converter converterId="localDateTimeConverter" />
+                            </h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Fin</f:facet>
+                            <h:outputText value="#{c.fin}">
+                                <f:converter converterId="localDateTimeConverter" />
+                            </h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Estado</f:facet>
+                            #{c.estado}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Prioridad</f:facet>
+                            #{c.prioridad}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Posición</f:facet>
+                            #{c.posicionCola != null ? c.posicionCola : 'N/A'}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Notas</f:facet>
+                            #{c.notas}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Creada En</f:facet>
+                            <h:outputText value="#{c.creadaEn}">
+                                <f:converter converterId="localDateTimeConverter" />
+                            </h:outputText>
+                        </h:column>
+
+                    </h:dataTable>
+
+                    <br/>
+                    <h:commandButton value="Recargar lista" action="#{citaBean.cargarCitas}" />
+                </h:panelGroup>
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+</html>

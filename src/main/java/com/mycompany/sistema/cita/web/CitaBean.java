@@ -1,8 +1,9 @@
-
 package com.mycompany.sistema.cita.web;
 
 import com.mycompany.sistema.cita.domain.*;
-import com.mycompany.sistema.cita.service.CitaService;  
+import com.mycompany.sistema.cita.service.CitaService;
+import com.mycompany.sistema.cita.ws.CitaManager;
+import com.mycompany.sistema.cita.ws.dto.CitaDTO;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -22,12 +23,18 @@ public class CitaBean implements Serializable {
     @Inject
     CitaService service;
 
+    @Inject
+    CitaManager citaManager; // 🔹 Usado para obtener lista de citas
+
     // Listas para combos
     private List<Solicitante> solicitantes;
     private List<Empresa> empresas;
     private List<Motivo> motivos;
     private List<Horario> horarios;
     private List<EstadoAtencion> estados;
+
+    // Lista de citas (para mostrar en tabla)
+    private List<CitaDTO> citas;
 
     // Selecciones (IDs)
     private Integer solicitanteId;
@@ -47,6 +54,7 @@ public class CitaBean implements Serializable {
     @PostConstruct
     public void init() {
         cargarCombos();
+        cargarCitas(); // 🔹 Cargar citas al iniciar
     }
 
     public void cargarCombos() {
@@ -57,6 +65,17 @@ public class CitaBean implements Serializable {
         estados      = em.createQuery("SELECT e FROM EstadoAtencion e ORDER BY e.id", EstadoAtencion.class).getResultList();
     }
 
+    public void cargarCitas() {
+        try {
+            citas = citaManager.listarCitas();
+            System.out.println("Citas cargadas en bean: " + (citas != null ? citas.size() : "null"));
+        } catch (Exception e) {
+            errorMsg = "Error al cargar citas: " + e.getMessage();
+            e.printStackTrace();
+            citas = List.of(); // Lista vacía en caso de error
+        }
+    }
+
     public void guardar() {
         try {
             errorMsg = null;
@@ -64,9 +83,10 @@ public class CitaBean implements Serializable {
                     solicitanteId, empresaId, motivoId, horarioId, estadoId,
                     prioridad, posicionCola, notas
             );
-            // Limpiar formulario básico (deja combos como estaban si prefieres)
+            // Limpiar formulario y actualizar tabla
             notas = null;
             posicionCola = null;
+            cargarCitas();
         } catch (Exception ex) {
             errorMsg = ex.getMessage();
             creadoId = null;
@@ -100,4 +120,8 @@ public class CitaBean implements Serializable {
 
     public Long getCreadoId() { return creadoId; }
     public String getErrorMsg() { return errorMsg; }
+
+    public List<CitaDTO> getCitas() { return citas; }
+    
+    
 }
