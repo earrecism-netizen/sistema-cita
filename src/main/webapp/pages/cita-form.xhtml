@@ -30,7 +30,14 @@
         </div>
         <p:commandButton value="Guardar" icon="pi pi-save"
                          action="#{citaBean1.guardar}" update=":growl @form"/>
+        <p:commandButton value="Actualizar" icon="pi pi-refresh"
+                 actionListener="#{citaBean.actualizar}" 
+                 update=":formCitas:tablaCitas :formDialog"
+                 oncomplete="PF('dlgCita').hide();" 
+                 rendered="#{not empty citaBean.citaSeleccionada}" />
+                 update=":growl @form"/>
         <p:button value="Cancelar" outcome="/pages/cita-list" styleClass="p-button-text"/>
+        
       </p:panel>
     </h:form>
   </ui:define>

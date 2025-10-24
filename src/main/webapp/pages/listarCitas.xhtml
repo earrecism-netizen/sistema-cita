@@ -15,9 +15,8 @@
             <h:form id="formListado">
                 <h2>Todas las Citas Registradas</h2>
 
-                <!-- Mensajes de error -->
                 <h:messages globalOnly="true" style="color: red;" />
-                
+
                 <h:panelGroup rendered="#{not empty citaBean.errorMsg}">
                     <div style="color: red; font-weight: bold;">
                         Error: #{citaBean.errorMsg}
@@ -50,6 +49,22 @@
                         <h:column>
                             <f:facet name="header">Motivo</f:facet>
                             #{c.motivo}
+                        </h:column>
+
+                        <!-- ✅ Esta parte estaba mal ubicada -->
+                        <h:column>
+                            <f:facet name="header">Creada En</f:facet>
+                            <h:outputText value="#{c.creadaEn}">
+                                <f:converter converterId="localDateTimeConverter" />
+                            </h:outputText>
+                        </h:column>
+
+                        <!-- ✅ Acciones corregidas dentro de una columna -->
+                        <h:column>
+                            <f:facet name="header">Acciones</f:facet>
+                            <h:commandLink value="Editar" action="#{citaBean.cargarCita(c)}">
+                                <f:setPropertyActionListener target="#{citaBean.cita}" value="#{c}" />
+                            </h:commandLink>
                         </h:column>
 
                         <h:column>
@@ -86,6 +101,7 @@
                             #{c.notas}
                         </h:column>
 
+                        <!-- Esta última columna ya estaba bien -->
                         <h:column>
                             <f:facet name="header">Creada En</f:facet>
                             <h:outputText value="#{c.creadaEn}">

@@ -44,7 +44,14 @@ public class Cita {
 
     @PrePersist
     void prePersist() { if (creadaEn == null) creadaEn = LocalDateTime.now(); }
-
+    
+    private LocalDateTime actualizadaEn;
+    private Integer solicitanteId;
+    private Integer empresaId;
+    private Integer motivoId;
+    private Integer horarioId;
+    private Integer estadoId;
+    
     public Long getId() { return id; }
     public Solicitante getSolicitante() { return solicitante; }
     public Empresa getEmpresa() { return empresa; }
@@ -55,6 +62,12 @@ public class Cita {
     public Integer getPosicionCola() { return posicionCola; }
     public String getNotas() { return notas; }
     public LocalDateTime getCreadaEn() { return creadaEn; }
+    public Integer getSolicitanteId() { return solicitanteId; }
+    public Integer getEmpresaId() { return empresaId; }
+    public Integer getMotivoId() { return motivoId; }
+    public Integer getHorarioId() { return horarioId; }
+    public Integer getEstadoId() { return estadoId; }
+    public LocalDateTime getActualizadaEn() { return actualizadaEn; }
     public void setId(Long id) { this.id = id; }
     public void setSolicitante(Solicitante solicitante) { this.solicitante = solicitante; }
     public void setEmpresa(Empresa empresa) { this.empresa = empresa; }
@@ -65,4 +78,12 @@ public class Cita {
     public void setPosicionCola(Integer posicionCola) { this.posicionCola = posicionCola; }
     public void setNotas(String notas) { this.notas = notas; }
     public void setCreadaEn(LocalDateTime creadaEn) { this.creadaEn = creadaEn; }
+    public void setId(long id) { this.id = id; }
+    public void setSolicitanteId(Integer solicitanteId) { this.solicitanteId = solicitanteId; }
+    public void setEmpresaId(Integer empresaId) { this.empresaId = empresaId; }
+    public void setMotivoId(Integer motivoId) { this.motivoId = motivoId; }
+    public void setHorarioId(Integer horarioId) { this.horarioId = horarioId; }
+    public void setEstadoId(Integer estadoId) { this.estadoId = estadoId; }
+    public void setActualizadaEn(LocalDateTime actualizadaEn) { this.actualizadaEn = actualizadaEn; }
+
 }
