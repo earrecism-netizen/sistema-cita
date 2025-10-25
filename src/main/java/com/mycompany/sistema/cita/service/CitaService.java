@@ -6,7 +6,6 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-import java.time.LocalDateTime;
 
 @ApplicationScoped
 public class CitaService {
@@ -63,30 +62,5 @@ public class CitaService {
         em.persist(c);
         em.flush();
         return c.getId();
-    }
-    
-     public void actualizarCita(Long id, Integer solicitanteId, Integer empresaId, Integer motivoId, Integer horarioId, Integer estadoId, Integer prioridad, Integer posicionCola, String notas) {
-
-        // Buscar cita por ID en la BD
-        Cita cita = em.find(Cita.class, id);
-
-        if (cita != null) {
-            // Asignar nuevos valores
-            cita.setSolicitanteId(solicitanteId);
-            cita.setEmpresaId(empresaId);
-            cita.setMotivoId(motivoId);
-            cita.setHorarioId(horarioId);
-            cita.setEstadoId(estadoId);
-            cita.setPrioridad(prioridad);
-            cita.setPosicionCola(posicionCola);
-            cita.setNotas(notas);
-            cita.setActualizadaEn(LocalDateTime.now()); 
-
-            // Guardar cambios
-            em.merge(cita);
-            em.flush();
-        } else {
-            throw new IllegalArgumentException("No se encontró la cita con ID: " + id);
-        }
     }
 }

@@ -42,13 +42,12 @@ public class CitaBean implements Serializable {
     private Integer motivoId;
     private Integer horarioId;
     private Integer estadoId;
-    
 
     // Otros campos
     private Integer prioridad = 0;
     private Integer posicionCola;
     private String notas;
-    private CitaDTO citaSeleccionada;
+
     private Long creadoId;
     private String errorMsg;
 
@@ -93,46 +92,6 @@ public class CitaBean implements Serializable {
             creadoId = null;
         }
     }
-    
-    public void seleccionarCita(CitaDTO cita) {
-        this.citaSeleccionada = cita;
-        this.solicitanteId = cita.getSolicitanteId(); 
-        this.empresaId     = cita.getEmpresaId();
-        this.motivoId      = cita.getMotivoId();
-        this.horarioId     = cita.getHorarioId();
-        this.estadoId      = cita.getEstadoId();
-        this.prioridad     = cita.getPrioridad();
-        this.posicionCola  = cita.getPosicionCola();
-        this.notas         = cita.getNotas();
-    }
-
-    
-    public void actualizar() {
-        try {
-            service.actualizarCita(
-            citaSeleccionada.getCitaId(),
-            solicitanteId,
-            empresaId,
-            motivoId,
-            horarioId,
-            estadoId,
-            prioridad,
-            posicionCola,
-            notas
-            );
-            limpiarFormulario();
-            cargarCitas();
-        } catch (Exception e) {
-            errorMsg = "Error al actualizar: " + e.getMessage();
-        }
-    }
-
-    public void limpiarFormulario() {
-        citaSeleccionada = null;
-        notas = null;
-        prioridad = null;
-        posicionCola = null;
-    }
 
     // Getters/Setters
     public List<Solicitante> getSolicitantes() { return solicitantes; }
@@ -162,9 +121,7 @@ public class CitaBean implements Serializable {
     public Long getCreadoId() { return creadoId; }
     public String getErrorMsg() { return errorMsg; }
 
-    
     public List<CitaDTO> getCitas() { return citas; }
-    public CitaDTO getCitaSeleccionada() { return citaSeleccionada; }
-    public void setCitaSeleccionada(CitaDTO c) { this.citaSeleccionada = c; }
+    
     
 }
